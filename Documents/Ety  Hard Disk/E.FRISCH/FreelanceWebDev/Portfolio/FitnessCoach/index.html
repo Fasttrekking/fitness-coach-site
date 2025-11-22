@@ -1,0 +1,1094 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FitMotion - מאמן כושר וריצה אישי</title>
+    <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;700;900&family=Heebo:wght@400;900&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Rubik', 'Heebo', sans-serif;
+            background: #121212;
+            color: #E3E3E3;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* ANIMATIONS */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideInRight {
+            from {
+                opacity: 0;
+                transform: translateX(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes slideInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .animate-on-scroll {
+            opacity: 0;
+            animation: fadeInUp 0.8s ease forwards;
+        }
+
+        .delay-1 { animation-delay: 0.1s; }
+        .delay-2 { animation-delay: 0.2s; }
+        .delay-3 { animation-delay: 0.3s; }
+        .delay-4 { animation-delay: 0.4s; }
+        .delay-5 { animation-delay: 0.5s; }
+        .delay-6 { animation-delay: 0.6s; }
+
+        /* HEADER */
+        header {
+            background: #121212;
+            border-bottom: 1px solid #1C1C1C;
+            padding: 20px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            animation: fadeIn 0.5s ease;
+            backdrop-filter: blur(10px);
+        }
+
+        .logo {
+            font-size: 30px;
+            font-weight: 900;
+            color: #FF6A00;
+        }
+
+        nav {
+            display: flex;
+            gap: 30px;
+            align-items: center;
+        }
+
+        nav a {
+            color: #FFFFFF;
+            text-decoration: none;
+            font-size: 17px;
+            transition: color 0.3s;
+        }
+
+        nav a:hover {
+            color: #FF6A00;
+        }
+
+        .cta-btn {
+            background: #FF6A00;
+            color: #000;
+            padding: 12px 20px;
+            border-radius: 8px;
+            font-weight: 700;
+            transition: transform 0.3s;
+        }
+
+        .cta-btn:hover {
+            transform: scale(1.05);
+        }
+
+        /* HERO SECTION */
+        .hero {
+            height: 650px;
+            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), 
+                        url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 650"><rect fill="%23000" width="1200" height="650"/><text x="50%" y="50%" fill="%23FF6A00" font-size="200" text-anchor="middle" opacity="0.1">💪</text></svg>');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 0 5%;
+        }
+
+        .hero h1 {
+            font-size: 64px;
+            font-weight: 900;
+            color: #FFFFFF;
+            margin-bottom: 20px;
+            line-height: 1.2;
+            animation: fadeInUp 0.8s ease 0.2s backwards;
+        }
+
+        .hero .highlight {
+            color: #FF6A00;
+            display: inline-block;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        .hero p {
+            font-size: 22px;
+            color: #E3E3E3;
+            margin-bottom: 40px;
+            max-width: 700px;
+            animation: fadeInUp 0.8s ease 0.4s backwards;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 16px;
+            animation: fadeInUp 0.8s ease 0.6s backwards;
+        }
+
+        .btn-primary {
+            background: #FF6A00;
+            color: #000;
+            padding: 16px 32px;
+            border-radius: 8px;
+            font-weight: 700;
+            font-size: 18px;
+            text-decoration: none;
+            transition: all 0.3s;
+            border: 2px solid #FF6A00;
+        }
+
+        .btn-primary:hover {
+            background: #ff7a20;
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: #FF6A00;
+            padding: 16px 32px;
+            border-radius: 8px;
+            font-weight: 700;
+            font-size: 18px;
+            text-decoration: none;
+            border: 2px solid #FF6A00;
+            transition: all 0.3s;
+        }
+
+        .btn-secondary:hover {
+            background: #FF6A00;
+            color: #000;
+        }
+
+        /* ABOUT SECTION */
+        .about {
+            background: #FFFFFF;
+            color: #000;
+            padding: 80px 5%;
+            display: grid;
+            grid-template-columns: 40% 60%;
+            gap: 60px;
+            align-items: center;
+        }
+
+        .about-image {
+            position: relative;
+        }
+
+        .about-image img {
+            width: 100%;
+            height: 400px;
+            object-fit: cover;
+            border: 2px solid #FF6A00;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+
+        .about-content h2 {
+            font-size: 40px;
+            font-weight: 900;
+            margin-bottom: 20px;
+            color: #000;
+        }
+
+        .about-content p {
+            font-size: 19px;
+            margin-bottom: 30px;
+            line-height: 1.8;
+            color: #333;
+        }
+
+        .benefits {
+            list-style: none;
+            margin-bottom: 30px;
+        }
+
+        .benefits li {
+            padding: 10px 0;
+            font-size: 18px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .benefits li:before {
+            content: "✔";
+            color: #00E676;
+            font-weight: 900;
+            font-size: 20px;
+        }
+
+        /* SERVICES SECTION */
+        .services {
+            background: #121212;
+            padding: 80px 5%;
+            text-align: center;
+        }
+
+        .services h2 {
+            font-size: 42px;
+            font-weight: 900;
+            color: #FFFFFF;
+            margin-bottom: 10px;
+        }
+
+        .services h2:after {
+            content: "";
+            display: block;
+            width: 60px;
+            height: 4px;
+            background: #FF6A00;
+            margin: 20px auto 60px;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .service-card {
+            background: #1C1C1C;
+            border: 1px solid #2A2A2A;
+            border-radius: 12px;
+            padding: 40px 30px;
+            transition: all 0.4s ease;
+            text-align: center;
+        }
+
+        .service-card:hover {
+            transform: translateY(-10px);
+            border-color: #FF6A00;
+            box-shadow: 0 10px 30px rgba(255, 106, 0, 0.3);
+        }
+
+        .service-icon {
+            font-size: 50px;
+            margin-bottom: 20px;
+            display: inline-block;
+            transition: transform 0.3s ease;
+        }
+
+        .service-card:hover .service-icon {
+            transform: scale(1.2) rotate(5deg);
+        }
+
+        .service-card h3 {
+            font-size: 24px;
+            font-weight: 700;
+            color: #FFFFFF;
+            margin-bottom: 15px;
+        }
+
+        .service-card p {
+            color: #E3E3E3;
+            margin-bottom: 20px;
+            font-size: 16px;
+        }
+
+        .service-card a {
+            color: #FF6A00;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 14px;
+            transition: color 0.3s;
+        }
+
+        .service-card a:hover {
+            color: #ff7a20;
+        }
+
+        /* RESULTS SECTION */
+        .results {
+            background: #FFFFFF;
+            padding: 80px 5%;
+            text-align: center;
+        }
+
+        .results h2 {
+            font-size: 42px;
+            font-weight: 900;
+            color: #000;
+            margin-bottom: 60px;
+        }
+
+        .results-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 40px;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .result-item {
+            position: relative;
+        }
+
+        .result-item img {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+            border: 2px solid #FF6A00;
+            border-radius: 12px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: all 0.4s ease;
+        }
+
+        .result-item:hover img {
+            transform: scale(1.05);
+            box-shadow: 0 10px 30px rgba(255, 106, 0, 0.4);
+        }
+
+        .result-item p {
+            margin-top: 15px;
+            font-weight: 700;
+            color: #333;
+        }
+
+        /* TESTIMONIALS SECTION */
+        .testimonials {
+            background: #F5F5F5;
+            padding: 80px 5%;
+            text-align: center;
+        }
+
+        .testimonials h2 {
+            font-size: 42px;
+            font-weight: 900;
+            color: #000;
+            margin-bottom: 60px;
+        }
+
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .testimonial-card {
+            background: #FFFFFF;
+            border: 1px solid #E0E0E0;
+            border-radius: 12px;
+            padding: 30px;
+            text-align: right;
+            transition: all 0.3s ease;
+        }
+
+        .testimonial-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            border-color: #FF6A00;
+        }
+
+        .testimonial-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .testimonial-avatar {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #FF6A00, #00E676);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            font-weight: 900;
+            color: #FFF;
+        }
+
+        .stars {
+            color: #FF6A00;
+            font-size: 18px;
+        }
+
+        .testimonial-card p {
+            color: #333;
+            font-size: 16px;
+            line-height: 1.8;
+            font-style: italic;
+        }
+
+        /* PRICING SECTION */
+        .pricing {
+            background: #FFFFFF;
+            padding: 80px 5%;
+            text-align: center;
+        }
+
+        .pricing h2 {
+            font-size: 42px;
+            font-weight: 900;
+            color: #000;
+            margin-bottom: 60px;
+        }
+
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .pricing-card {
+            background: #FFFFFF;
+            border: 2px solid #1C1C1C;
+            border-radius: 12px;
+            padding: 40px 30px;
+            transition: all 0.4s ease;
+        }
+
+        .pricing-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            border-color: #FF6A00;
+            box-shadow: 0 15px 50px rgba(255, 106, 0, 0.25);
+        }
+
+        .pricing-card.featured {
+            border-color: #FF6A00;
+            border-width: 3px;
+            transform: scale(1.05);
+        }
+
+        .pricing-card.featured:hover {
+            transform: translateY(-10px) scale(1.08);
+        }
+
+        .pricing-card h3 {
+            font-size: 28px;
+            font-weight: 900;
+            color: #000;
+            margin-bottom: 10px;
+        }
+
+        .price {
+            font-size: 48px;
+            font-weight: 900;
+            color: #FF6A00;
+            margin: 20px 0;
+        }
+
+        .price span {
+            font-size: 20px;
+            color: #666;
+        }
+
+        .pricing-features {
+            list-style: none;
+            text-align: right;
+            margin: 30px 0;
+        }
+
+        .pricing-features li {
+            padding: 10px 0;
+            color: #333;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .pricing-features li:before {
+            content: "✔";
+            color: #00E676;
+            font-weight: 900;
+        }
+
+        /* CONTACT FORM SECTION */
+        .contact-section {
+            background: #121212;
+            padding: 80px 5%;
+        }
+
+        .contact-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+
+        .contact-info {
+            animation: slideInRight 0.8s ease;
+        }
+
+        .contact-info h2 {
+            font-size: 42px;
+            font-weight: 900;
+            color: #FFFFFF;
+            margin-bottom: 20px;
+        }
+
+        .contact-info p {
+            font-size: 18px;
+            color: #E3E3E3;
+            margin-bottom: 30px;
+            line-height: 1.8;
+        }
+
+        .contact-details {
+            margin-top: 40px;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 20px;
+            padding: 15px;
+            background: #1C1C1C;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .contact-item:hover {
+            background: #2A2A2A;
+            transform: translateX(-5px);
+        }
+
+        .contact-icon {
+            font-size: 24px;
+            color: #FF6A00;
+        }
+
+        .contact-form {
+            background: #1C1C1C;
+            padding: 40px;
+            border-radius: 12px;
+            border: 1px solid #2A2A2A;
+            animation: slideInLeft 0.8s ease;
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        .form-group label {
+            display: block;
+            color: #FFFFFF;
+            font-weight: 700;
+            margin-bottom: 10px;
+            font-size: 16px;
+        }
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 15px;
+            background: #121212;
+            border: 2px solid #2A2A2A;
+            border-radius: 8px;
+            color: #FFFFFF;
+            font-family: 'Rubik', sans-serif;
+            font-size: 16px;
+            transition: all 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: #FF6A00;
+            background: #1C1C1C;
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        .submit-btn {
+            width: 100%;
+            background: #FF6A00;
+            color: #000;
+            padding: 16px;
+            border: none;
+            border-radius: 8px;
+            font-size: 18px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: 'Rubik', sans-serif;
+        }
+
+        .submit-btn:hover {
+            background: #ff7a20;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(255, 106, 0, 0.4);
+        }
+
+        .submit-btn:active {
+            transform: translateY(0);
+        }
+
+        /* FINAL CTA */
+        .final-cta {
+            height: 350px;
+            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), 
+                        url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 350"><rect fill="%23121212" width="1200" height="350"/><circle cx="200" cy="175" r="100" fill="%23FF6A00" opacity="0.1"/><circle cx="1000" cy="175" r="100" fill="%2300E676" opacity="0.1"/></svg>');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+
+        .final-cta h2 {
+            font-size: 48px;
+            font-weight: 900;
+            color: #FFFFFF;
+            margin-bottom: 30px;
+        }
+
+        /* FOOTER */
+        footer {
+            background: #000;
+            color: #FFF;
+            padding: 60px 5% 30px;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 60px;
+            max-width: 1200px;
+            margin: 0 auto 40px;
+        }
+
+        .footer-section h3 {
+            font-size: 24px;
+            font-weight: 900;
+            color: #FF6A00;
+            margin-bottom: 20px;
+        }
+
+        .footer-section p, .footer-section a {
+            color: #E3E3E3;
+            text-decoration: none;
+            display: block;
+            margin-bottom: 10px;
+            transition: color 0.3s;
+        }
+
+        .footer-section a:hover {
+            color: #FF6A00;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+            font-size: 24px;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid #1C1C1C;
+            color: #999;
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 36px; }
+            .about, .services-grid, .results-grid, .testimonials-grid, .pricing-grid, .footer-content, .contact-container {
+                grid-template-columns: 1fr;
+            }
+            nav { display: none; }
+            .contact-container {
+                gap: 40px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- HEADER -->
+    <header>
+        <div class="logo">FitMotion</div>
+        <nav>
+            <a href="#home">דף הבית</a>
+            <a href="#about">אודות</a>
+            <a href="#services">אימונים</a>
+            <a href="#testimonials">לקוחות</a>
+            <a href="#contact">צור קשר</a>
+            <a href="#contact" class="cta-btn">שיחת התאמה</a>
+        </nav>
+    </header>
+
+    <!-- HERO SECTION -->
+    <section class="hero" id="home">
+        <h1>בונים <span class="highlight">גוף</span>. משפרים <span class="highlight">ביצועים</span>. חיים טוב יותר.</h1>
+        <p>אימוני כוח, ריצה ו-Fast Trekking — בליווי אישי ומקצועי</p>
+        <div class="hero-buttons">
+            <a href="#contact" class="btn-primary">התחל אימון ניסיון</a>
+            <a href="#services" class="btn-secondary">תכניות האימון שלי</a>
+        </div>
+    </section>
+
+    <!-- ABOUT SECTION -->
+    <section class="about" id="about">
+        <div class="about-image">
+            <img src="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 400'><rect fill='%23121212' width='400' height='400'/><text x='50%' y='50%' fill='%23FF6A00' font-size='100' text-anchor='middle' dominant-baseline='middle'>🏃</text></svg>" alt="דני - מאמן כושר וריצה">
+        </div>
+        <div class="about-content">
+            <h2>נעים להכיר — אני דני</h2>
+            <p>מאמן כושר וריצה עם ניסיון של 8 שנים. מתמחה בשיפור ביצועים, הרזיה בריאה, ריצה למתחילים ו-Fast Trekking. אני עובד בגישה שמציבה אותך במרכז — עם תוכנית מותאמת אישית ואפס חרטות.</p>
+            <ul class="benefits">
+                <li>תכנית אישית מותאמת לצרכים שלך</li>
+                <li>מעקב שוטף ומשוב מקצועי</li>
+                <li>אימוני חוץ ובית לפי העדפה</li>
+                <li>תוצאות מוכחות ומדידות</li>
+            </ul>
+            <a href="#contact" class="btn-primary">בוא נתחיל</a>
+        </div>
+    </section>
+
+    <!-- SERVICES SECTION -->
+    <section class="services" id="services">
+        <h2>סוגי אימונים</h2>
+        <div class="services-grid">
+            <div class="service-card animate-on-scroll delay-1">
+                <div class="service-icon">🏃‍♂️</div>
+                <h3>ריצה למתחילים</h3>
+                <p>תכנית מובנית למי שמתחיל לרוץ. נבנה סיבולת, נשפר טכניקה ונגיע ליעדים.</p>
+                <a href="#contact">עוד פרטים →</a>
+            </div>
+            <div class="service-card animate-on-scroll delay-2">
+                <div class="service-icon">💪</div>
+                <h3>חיטוב וכוח</h3>
+                <p>אימוני משקולות ותרגילים פונקציונליים לבניית שריר וחיטוב הגוף.</p>
+                <a href="#contact">עוד פרטים →</a>
+            </div>
+            <div class="service-card animate-on-scroll delay-3">
+                <div class="service-icon">⛰️</div>
+                <h3>Fast Trekking</h3>
+                <p>אימוני טיולים מהירים בשטח. שילוב מושלם של אירובי וכוח.</p>
+                <a href="#contact">עוד פרטים →</a>
+            </div>
+            <div class="service-card animate-on-scroll delay-4">
+                <div class="service-icon">🏅</div>
+                <h3>הכנה למרוצים</h3>
+                <p>תכנית אימונים ממוקדת להכנה ל-5K, 10K, חצי מרתון או מרתון מלא.</p>
+                <a href="#contact">עוד פרטים →</a>
+            </div>
+            <div class="service-card animate-on-scroll delay-5">
+                <div class="service-icon">👥</div>
+                <h3>אימוני קבוצה</h3>
+                <p>אנרגיה, מוטיבציה ותחרותיות בריאה באימונים קבוצתיים.</p>
+                <a href="#contact">עוד פרטים →</a>
+            </div>
+            <div class="service-card animate-on-scroll delay-6">
+                <div class="service-icon">📋</div>
+                <h3>תכנית אישית מלאה</h3>
+                <p>ליווי מקיף: אימונים, תזונה, מעקב ומשוב - הכל בהתאמה אישית.</p>
+                <a href="#contact">עוד פרטים →</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- RESULTS SECTION -->
+    <section class="results">
+        <h2>תוצאות אמיתיות של מתאמנים</h2>
+        <div class="results-grid">
+            <div class="result-item">
+                <img src="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 300 300'><rect fill='%23f0f0f0' width='300' height='300'/><text x='50%' y='40%' fill='%23333' font-size='60' text-anchor='middle'>לפני</text><text x='50%' y='60%' fill='%23FF6A00' font-size='80' text-anchor='middle'>→</text><text x='50%' y='80%' fill='%2300E676' font-size='60' text-anchor='middle'>אחרי</text></svg>" alt="תוצאה 1">
+                <p>3 חודשים של ליווי - ירידה של 12 ק"ג</p>
+            </div>
+            <div class="result-item">
+                <img src="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 300 300'><rect fill='%23f0f0f0' width='300' height='300'/><text x='50%' y='40%' fill='%23333' font-size='50' text-anchor='middle'>מ-0</text><text x='50%' y='60%' fill='%23FF6A00' font-size='80' text-anchor='middle'>→</text><text x='50%' y='80%' fill='%2300E676' font-size='50' text-anchor='middle'>חצי מרתון</text></svg>" alt="תוצאה 2">
+                <p>4 חודשים - מאפס לחצי מרתון</p>
+            </div>
+            <div class="result-item">
+                <img src="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 300 300'><rect fill='%23f0f0f0' width='300' height='300'/><text x='50%' y='40%' fill='%23333' font-size='40' text-anchor='middle'>גב כואב</text><text x='50%' y='60%' fill='%23FF6A00' font-size='80' text-anchor='middle'>→</text><text x='50%' y='80%' fill='%2300E676' font-size='40' text-anchor='middle'>כושר ברזל</text></svg>" alt="תוצאה 3">
+                <p>5 חודשים - מכאבי גב לכושר מלא</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- TESTIMONIALS SECTION -->
+    <section class="testimonials" id="testimonials">
+        <h2>מה מתאמנים מספרים?</h2>
+        <div class="testimonials-grid">
+            <div class="testimonial-card">
+                <div class="testimonial-header">
+                    <div class="testimonial-avatar">ר</div>
+                    <div>
+                        <strong>רונית ל.</strong>
+                        <div class="stars">★★★★★</div>
+                    </div>
+                </div>
+                <p>"דני שינה לי את החיים. הגעתי בלי כל רקע ספורטיבי והיום אני רצה 10K בקלות. הגישה האישית והמקצועיות שלו פשוט מושלמות."</p>
+            </div>
+            <div class="testimonial-card">
+                <div class="testimonial-header">
+                    <div class="testimonial-avatar">י</div>
+                    <div>
+                        <strong>יוסי כ.</strong>
+                        <div class="stars">★★★★★</div>
+                    </div>
+                </div>
+                <p>"אחרי שנים של כאבי גב, דני בנה לי תכנית שחיזקה את הגוף ושיפרה את איכות החיים שלי. ממליץ בחום!"</p>
+            </div>
+            <div class="testimonial-card">
+                <div class="testimonial-header">
+                    <div class="testimonial-avatar">ש</div>
+                    <div>
+                        <strong>שרה מ.</strong>
+                        <div class="stars">★★★★★</div>
+                    </div>
+                </div>
+                <p>"הייתי ספקנית בהתחלה, אבל דני הוכיח לי שאפשר. ירדתי 15 ק"ג ומרגישה הכי טוב שהייתי אי פעם. תודה ענקית!"</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- PRICING SECTION -->
+    <section class="pricing">
+        <h2>בחר את התכנית שמתאימה לך</h2>
+        <div class="pricing-grid">
+            <div class="pricing-card">
+                <h3>Basic</h3>
+                <div class="price">₪499<span>/חודש</span></div>
+                <ul class="pricing-features">
+                    <li>8 אימונים בחודש</li>
+                    <li>תכנית אימונים אישית</li>
+                    <li>מעקב והתאמות</li>
+                    <li>תמיכה בווטסאפ</li>
+                </ul>
+                <a href="#contact" class="btn-primary">התחל עכשיו</a>
+            </div>
+            <div class="pricing-card featured">
+                <h3>Advance</h3>
+                <div class="price">₪799<span>/חודש</span></div>
+                <ul class="pricing-features">
+                    <li>12 אימונים בחודש</li>
+                    <li>תכנית מלאה + תזונה</li>
+                    <li>מעקב שבועי מקיף</li>
+                    <li>תמיכה מלאה 24/7</li>
+                    <li>אימוני קבוצה חינם</li>
+                </ul>
+                <a href="#contact" class="btn-primary">התחל עכשיו</a>
+            </div>
+            <div class="pricing-card">
+                <h3>Pro</h3>
+                <div class="price">₪1,199<span>/חודש</span></div>
+                <ul class="pricing-features">
+                    <li>אימונים ללא הגבלה</li>
+                    <li>ליווי מלא + תזונה</li>
+                    <li>מעקב יומי</li>
+                    <li>קו ישיר למאמן</li>
+                    <li>אימוני קבוצה + 1ON1</li>
+                    <li>גישה לכל התכנים</li>
+                </ul>
+                <a href="#contact" class="btn-primary">התחל עכשיו</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- FINAL CTA -->
+    <section class="final-cta">
+        <h2>מוכן לשנות את הגוף והחיים שלך?</h2>
+        <a href="#contact-form" class="btn-primary">דבר איתי עכשיו</a>
+    </section>
+
+    <!-- CONTACT FORM SECTION -->
+    <section class="contact-section" id="contact-form">
+        <div class="contact-container">
+            <div class="contact-info">
+                <h2>בוא נתחיל את המסע שלך</h2>
+                <p>מלא את הפרטים ואחזור אליך תוך 24 שעות. נקבע שיחת התאמה ונבנה יחד את התכנית המושלמת עבורך.</p>
+                <p>כל שיחת התאמה היא בחינם וללא התחייבות - הזדמנות לדבר על היעדים שלך ולראות איך אני יכול לעזור לך להגיע אליהם.</p>
+                
+                <div class="contact-details">
+                    <div class="contact-item">
+                        <span class="contact-icon">📱</span>
+                        <div>
+                            <strong>טלפון</strong><br>
+                            050-123-4567
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <span class="contact-icon">📧</span>
+                        <div>
+                            <strong>אימייל</strong><br>
+                            danny@fitmotion.co.il
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <span class="contact-icon">💬</span>
+                        <div>
+                            <strong>WhatsApp</strong><br>
+                            זמין לשאלות 7 ימים בשבוע
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <form class="contact-form" onsubmit="handleSubmit(event)">
+                <div class="form-group">
+                    <label for="name">שם מלא *</label>
+                    <input type="text" id="name" name="name" required placeholder="איך קוראים לך?">
+                </div>
+
+                <div class="form-group">
+                    <label for="phone">טלפון *</label>
+                    <input type="tel" id="phone" name="phone" required placeholder="050-1234567">
+                </div>
+
+                <div class="form-group">
+                    <label for="email">אימייל</label>
+                    <input type="email" id="email" name="email" placeholder="your@email.com">
+                </div>
+
+                <div class="form-group">
+                    <label for="goal">מה המטרה שלך? *</label>
+                    <select id="goal" name="goal" required>
+                        <option value="">בחר מטרה...</option>
+                        <option value="weight-loss">הרזיה ואיבוד משקל</option>
+                        <option value="muscle">בניית שריר וחיטוב</option>
+                        <option value="running">שיפור יכולת ריצה</option>
+                        <option value="fitness">שיפור כושר כללי</option>
+                        <option value="marathon">הכנה למרוצים</option>
+                        <option value="other">אחר</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="message">ספר לי עוד על עצמך</label>
+                    <textarea id="message" name="message" placeholder="רקע ספורטיvi, מצב בריאותי, זמינות לאימונים..."></textarea>
+                </div>
+
+                <button type="submit" class="submit-btn">שלח פנייה</button>
+            </form>
+        </div>
+    </section>
+
+    <script>
+        function handleSubmit(event) {
+            event.preventDefault();
+            
+            const formData = new FormData(event.target);
+            const data = Object.fromEntries(formData);
+            
+            // כאן תוכל להוסיף שליחה לשרת או לשירות כמו EmailJS
+            console.log('Form submitted:', data);
+            
+            // הודעת הצלחה
+            alert('תודה ' + data.name + '! קיבלתי את הפנייה שלך ואחזור אליך בהקדם.');
+            event.target.reset();
+        }
+
+        // Scroll animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver(function(entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.animation = 'fadeInUp 0.8s ease forwards';
+                }
+            });
+        }, observerOptions);
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const animatedElements = document.querySelectorAll('.animate-on-scroll');
+            animatedElements.forEach(el => observer.observe(el));
+        });
+    </script>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>FitMotion</h3>
+                <p>מאמן כושר וריצה אישי</p>
+                <p>מביא אותך ליעדים בצורה הכי מקצועית</p>
+            </div>
+            <div class="footer-section">
+                <h3>קישורים</h3>
+                <a href="#home">דף הבית</a>
+                <a href="#about">אודות</a>
+                <a href="#services">אימונים</a>
+                <a href="#testimonials">המלצות</a>
+                <a href="#contact">צור קשר</a>
+            </div>
+            <div class="footer-section">
+                <h3>צור קשר</h3>
+                <p>📱 050-123-4567</p>
+                <p>📧 danny@fitmotion.co.il</p>
+                <div class="social-links">
+                    <a href="#" style="color: #FF6A00;">📘</a>
+                    <a href="#" style="color: #FF6A00;">📸</a>
+                    <a href="#" style="color: #00E676;">💬</a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>© 2024 FitMotion - כל הזכויות שמורות | עיצוב ופיתוח למאמן כושר מקצועי</p>
+        </div>
+    </footer>
+</body>
+</html>
